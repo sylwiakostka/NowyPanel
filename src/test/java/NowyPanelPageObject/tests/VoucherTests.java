@@ -11,8 +11,16 @@ public class VoucherTests extends TestConfig {
         new MakeOrderPage()
                 .chooseCorrectVoucher(1,0)
                 .introduceAddresses("Piękna 2, Warszawa", "Rozłogi 1, Warszawa")
-                .assertDanePracownika(1,1)
+                .assertDanePracownikaIVoucher(1,1, 1,0)
                 .saveOrder();
+    }
+
+    @Test
+    public void shouldNotOrderWithIncorrectVoucher () throws Exception {
+        new MakeOrderPage()
+                .chooseIncorrectVoucher(6,0)
+                .cancelOrder();
+
     }
 
 }

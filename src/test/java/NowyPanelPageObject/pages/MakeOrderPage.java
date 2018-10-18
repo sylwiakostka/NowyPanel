@@ -213,7 +213,7 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//button[@class='btn btn-default pull-left']")
     private WebElement zamknijErrorVoucherButton;
 
-    @FindBy (xpath = "//div[@class='input-group']//input[@ng-model ='model.voucher.code']")
+    @FindBy (xpath = "//div[@class='input-group']//input[@ng-model='model.voucher.code']")
     private WebElement voucherNumberField;
 
     @FindBy (xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
@@ -510,8 +510,9 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage assertDanePracownika (int indeksWiersz, int indeksKolumna) throws Exception {
-        danePracownika.getText().equals(wyborKomorki(indeksWiersz,indeksKolumna));
+    public MakeOrderPage assertDanePracownikaIVoucher (int indeksWierszP, int indeksKolumnaP, int indeksWierszV, int indeksKolumnaV) throws Exception {
+        danePracownika.getText().equals(wyborKomorki(indeksWierszP,indeksKolumnaP));
+        voucherNumberField.getText().equals(wyborKomorki(indeksWierszV,indeksKolumnaV));
         return this;
     }
 
