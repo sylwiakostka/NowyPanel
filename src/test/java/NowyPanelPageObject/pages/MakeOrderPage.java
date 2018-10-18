@@ -1,6 +1,10 @@
 package NowyPanelPageObject.pages;
 
 import NowyPanelPageObject.utilities.DataFaker;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,6 +12,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import ru.yandex.qatools.allure.annotations.Step;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
 import static NowyPanelPageObject.utilities.Utilities.waitForElementToBeClickable;
@@ -21,13 +28,16 @@ public class MakeOrderPage extends BasePage {
 
     private DataFaker faker = new DataFaker();
     private Actions builder = new Actions(getInstance());
-
+    FileInputStream fis;
+    XSSFWorkbook workbook;
+    XSSFSheet sheet;
 
     @FindBy(xpath = "//a[@ng-click='c.driver()']")
     private WebElement platnoscUKierowcyButton;
 
-    @FindBy(xpath = "//div[@class='col-md-4 col-voucher']/a[@class='center-block btn btn-default' and 1]")
+    @FindBy(xpath = "//div[@class='col-md-4 col-voucher']/a[@class='center-block btn btn-default']")
     private WebElement voucherButton;
+
 
     @FindBy(xpath = "//a[@class='center-block btn btn-primary']")
     private WebElement profilBiznesowyButton;
@@ -185,6 +195,32 @@ public class MakeOrderPage extends BasePage {
     @FindBy(partialLinkText = "Reklamacja")
     private WebElement powodOdrzuceniaReklamacja;
 
+    @FindBy(xpath = "//div[@uib-modal-transclude]//input [@ng-model='c.code']")
+    private WebElement numerVouchera;
+
+    @FindBy(xpath = "//div[@uib-modal-transclude]//a[@class='center-block btn btn-primary']")
+    private WebElement sprawdzButton;
+
+    @FindBy(xpath = "//div[@class='alert alert-danger']")
+    private WebElement voucherAlertError;
+
+    @FindBy(xpath = "//div[@class='alert alert-success']")
+    private WebElement voucherAlertAvailable;
+
+    @FindBy(xpath = "//div[@class = 'col-lg-6']//button[@class='btn btn-primary']")
+    private WebElement zastosujVoucherButton;
+
+    @FindBy(xpath = "//button[@class='btn btn-default pull-left']")
+    private WebElement zamknijErrorVoucherButton;
+
+    @FindBy (xpath = "//div[@class='input-group']//input[@ng-model ='model.voucher.code']")
+    private WebElement voucherNumberField;
+
+    @FindBy (xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
+    private WebElement danePracownika;
+
+
+
 
     @Step
     public MakeOrderPage verifyMakeOrderPage(String tytulStronyZamowienia) {
@@ -218,6 +254,22 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
+    public MakeOrderPage introduceAddresses(String adresStartu, String adresDocelowy) throws InterruptedException {
+        Thread.sleep(1000);
+        adresStartuField.sendKeys(adresStartu);
+        WebElement wskazanyAdresStartu = getInstance().findElement(By.partialLinkText(adresStartu));
+        waitForVisibilityOfElement(wskazanyAdresStartu);
+        wskazanyAdresStartu.click();
+        Thread.sleep(1000);
+        adresDocelowyField.sendKeys(adresDocelowy);
+        WebElement wskazanyAdresDocelowy = getInstance().findElement(By.partialLinkText(adresDocelowy));
+        wskazanyAdresDocelowy.click();
+        return this;
+    }
+
+
+
+    @Step
     public ConfirmationOrderPage saveOrder() {
         zapiszButton.click();
         return new ConfirmationOrderPage().verifyConfirmationPage("Obsługa zgłoszenie została zakończona. Możesz zamknąć okno przeglądarki.");
@@ -228,7 +280,7 @@ public class MakeOrderPage extends BasePage {
         klasaButton.click();
         listaKlasaLuksusowa.click();
         Assertions.assertEquals("Klasa: luksusowa", klasaButton.getText());
-        return new MakeOrderPage();
+        return this;
     }
 
     @Step
@@ -420,6 +472,48 @@ public class MakeOrderPage extends BasePage {
         return new ConfirmationOrderPage().verifyConfirmationPage("Obsługa zgłoszenie została zakończona. Możesz zamknąć okno przeglądarki.");
     }
 
+    @Step
+    public MakeOrderPage chooseCorrectVoucher(int indeksWiersz, int indeksKolumna) throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(voucherButton);
+        voucherButton.click();
+        numerVouchera.sendKeys(wyborKomorki(indeksWiersz,indeksKolumna));
+        sprawdzButton.click();
+        Assertions.assertTrue(voucherAlertAvailable.isDisplayed());
+        zastosujVoucherButton.click();
+        Thread.sleep(3000);
+        Assertions.assertTrue(voucherNumberField.isDisplayed());
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage chooseIncorrectVoucher (int indeksWiersz, int indeksKolumna ) throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(voucherButton);
+        voucherButton.click();
+        numerVouchera.sendKeys(wyborKomorki(indeksWiersz,indeksKolumna));
+        sprawdzButton.click();
+        Assertions.assertTrue(voucherAlertError.isDisplayed());
+        zamknijErrorVoucherButton.click();
+        profilBiznesowyButton.isSelected();
+        return this;
+    }
+
+    @Step
+    public String wyborKomorki (int indeksWiersz, int indeksKolumna) throws IOException {
+        FileInputStream fis = new FileInputStream("C:\\Users\\user\\Documents\\daneTesty.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
+        XSSFSheet sheet = workbook.getSheet("vouchery");
+        Row row = sheet.getRow(indeksWiersz);
+        Cell cell = row.getCell(indeksKolumna);
+        return cell.getStringCellValue();
+    }
+
+    @Step
+    public MakeOrderPage assertDanePracownika (int indeksWiersz, int indeksKolumna) throws Exception {
+        danePracownika.getText().equals(wyborKomorki(indeksWiersz,indeksKolumna));
+        return this;
+    }
 
 }
 

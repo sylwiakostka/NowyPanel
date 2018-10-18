@@ -19,4 +19,10 @@ public class Utilities {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    public  static void isSelected (WebElement element) {
+        element.isSelected();
+    }
+
+
+
 }
