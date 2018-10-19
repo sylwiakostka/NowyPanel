@@ -74,7 +74,7 @@ public class FutureOrder1HourAirport {
 
         WebElement minute = driver.findElement(By.cssSelector("#order-form > div > div.col-sm-7.col-main > order-form-date-time > div > div.col-xs-4.col-md-3.col-time > table > tbody > tr:nth-child(1) > td.uib-increment.minutes > a > span"));
         int i = 0;
-        while (i < 25) {
+        while (i < 22) {
             minute.click();
             i++;
         }

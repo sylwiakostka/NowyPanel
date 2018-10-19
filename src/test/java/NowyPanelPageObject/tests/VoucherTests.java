@@ -10,8 +10,9 @@ public class VoucherTests extends TestConfig {
     public void shouldOrderWithVoucherPracownik() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(1,0)
+                .assertDanePracownika(1,1)
+                .assertDaneVouchera(1,0)
                 .introduceAddresses("Piękna 2, Warszawa", "Rozłogi 1, Warszawa")
-                .assertDanePracownikaIVoucher(1,1, 1,0)
                 .saveOrder();
     }
 
@@ -20,7 +21,16 @@ public class VoucherTests extends TestConfig {
         new MakeOrderPage()
                 .chooseIncorrectVoucher(6,0)
                 .cancelOrder();
-
     }
+
+    @Test
+    public void shouldOrderWithVoucherGosc () throws Exception {
+        new MakeOrderPage()
+                .chooseCorrectVoucher(2,0)
+                .assertDaneVouchera(2,0)
+                .introduceAddressesAndFullName("Polna 3, Warszawa", "Baranowska 1, Warszawa")
+                .saveOrder();
+    }
+
 
 }

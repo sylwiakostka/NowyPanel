@@ -213,13 +213,14 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//button[@class='btn btn-default pull-left']")
     private WebElement zamknijErrorVoucherButton;
 
-    @FindBy (xpath = "//div[@class='input-group']//input[@ng-model='model.voucher.code']")
+    @FindBy(xpath = "//div[@class='input-group']//input[@ng-model='model.voucher.code']")
     private WebElement voucherNumberField;
 
     @FindBy (xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
     private WebElement danePracownika;
 
-
+    @FindBy (xpath = "//ul [@class='dropdown-menu ng-isolate-scope']//a [@tabindex = '-1']")
+    private WebElement listaPracownik;
 
 
     @Step
@@ -266,7 +267,6 @@ public class MakeOrderPage extends BasePage {
         wskazanyAdresDocelowy.click();
         return this;
     }
-
 
 
     @Step
@@ -477,7 +477,7 @@ public class MakeOrderPage extends BasePage {
         Thread.sleep(2000);
         waitForVisibilityOfElement(voucherButton);
         voucherButton.click();
-        numerVouchera.sendKeys(wyborKomorki(indeksWiersz,indeksKolumna));
+        numerVouchera.sendKeys(wyborKomorkiVoucher(indeksWiersz, indeksKolumna));
         sprawdzButton.click();
         Assertions.assertTrue(voucherAlertAvailable.isDisplayed());
         zastosujVoucherButton.click();
@@ -487,11 +487,11 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage chooseIncorrectVoucher (int indeksWiersz, int indeksKolumna ) throws Exception {
+    public MakeOrderPage chooseIncorrectVoucher(int indeksWiersz, int indeksKolumna) throws Exception {
         Thread.sleep(2000);
         waitForVisibilityOfElement(voucherButton);
         voucherButton.click();
-        numerVouchera.sendKeys(wyborKomorki(indeksWiersz,indeksKolumna));
+        numerVouchera.sendKeys(wyborKomorkiVoucher(indeksWiersz, indeksKolumna));
         sprawdzButton.click();
         Assertions.assertTrue(voucherAlertError.isDisplayed());
         zamknijErrorVoucherButton.click();
@@ -500,7 +500,7 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public String wyborKomorki (int indeksWiersz, int indeksKolumna) throws IOException {
+    public String wyborKomorkiVoucher(int indeksWiersz, int indeksKolumna) throws IOException {
         FileInputStream fis = new FileInputStream("C:\\Users\\user\\Documents\\daneTesty.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheet("vouchery");
@@ -510,12 +510,47 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage assertDanePracownikaIVoucher (int indeksWierszP, int indeksKolumnaP, int indeksWierszV, int indeksKolumnaV) throws Exception {
-        danePracownika.getText().equals(wyborKomorki(indeksWierszP,indeksKolumnaP));
-        voucherNumberField.getText().equals(wyborKomorki(indeksWierszV,indeksKolumnaV));
+    public MakeOrderPage assertDanePracownika(int indeksWierszP, int indeksKolumnaP) throws Exception {
+        String getValuePracownik = danePracownika.getAttribute("value");
+        Assertions.assertEquals(getValuePracownik, wyborKomorkiVoucher(indeksWierszP, indeksKolumnaP));
         return this;
     }
 
+    @Step
+    public MakeOrderPage assertDaneVouchera(int indeksWierszV, int indeksKolumnaV) throws Exception {
+        String getValueVoucher = voucherNumberField.getAttribute("value");
+        Assertions.assertEquals(getValueVoucher, wyborKomorkiVoucher(indeksWierszV, indeksKolumnaV));
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage chooseB2BOrder() throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(profilBiznesowyButton);
+        profilBiznesowyButton.click();
+        return this;
+    }
+
+    @Step
+    public String wyborKomorkiPracownik(int indeksWiersz, int indeksKolumna) throws IOException {
+        FileInputStream fis = new FileInputStream("C:\\Users\\user\\Documents\\daneTesty.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
+        XSSFSheet sheet = workbook.getSheet("userB2B");
+        Row row = sheet.getRow(indeksWiersz);
+        Cell cell = row.getCell(indeksKolumna);
+        return cell.getStringCellValue();
+    }
+
+    @Step
+    public MakeOrderPage introduceDanePracownika (int indeksWiersz, int indeksKolumna ) throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(danePracownika);
+        danePracownika.sendKeys(wyborKomorkiPracownik(indeksWiersz, indeksKolumna));
+        listaPracownik.click();
+        String getValueListaPracownik = danePracownika.getAttribute("value");
+        Assertions.assertEquals(getValueListaPracownik,(wyborKomorkiPracownik(indeksWiersz, indeksKolumna)));
+        return this;
+    }
 }
 
 
