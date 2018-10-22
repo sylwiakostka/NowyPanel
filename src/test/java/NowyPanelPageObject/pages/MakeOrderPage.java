@@ -15,6 +15,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
 import static NowyPanelPageObject.utilities.Utilities.waitForElementToBeClickable;
@@ -28,9 +30,7 @@ public class MakeOrderPage extends BasePage {
 
     private DataFaker faker = new DataFaker();
     private Actions builder = new Actions(getInstance());
-    FileInputStream fis;
-    XSSFWorkbook workbook;
-    XSSFSheet sheet;
+
 
     @FindBy(xpath = "//a[@ng-click='c.driver()']")
     private WebElement platnoscUKierowcyButton;
@@ -216,11 +216,20 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//div[@class='input-group']//input[@ng-model='model.voucher.code']")
     private WebElement voucherNumberField;
 
-    @FindBy (xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
+    @FindBy(xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
     private WebElement danePracownika;
 
-    @FindBy (xpath = "//ul [@class='dropdown-menu ng-isolate-scope']//a [@tabindex = '-1']")
+    @FindBy(xpath = "//ul [@class='dropdown-menu ng-isolate-scope']//a [@tabindex = '-1']")
     private WebElement listaPracownik;
+
+    @FindBy(xpath = "//input[@placeholder='HH']")
+    private WebElement hourField;
+
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    private WebElement minutesField;
+
+    @FindBy(id = "model-date")
+    private WebElement dataField;
 
 
     @Step
@@ -542,14 +551,51 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage introduceDanePracownika (int indeksWiersz, int indeksKolumna ) throws Exception {
+    public MakeOrderPage introduceDanePracownika(int indeksWiersz, int indeksKolumna) throws Exception {
         Thread.sleep(2000);
         waitForVisibilityOfElement(danePracownika);
         danePracownika.sendKeys(wyborKomorkiPracownik(indeksWiersz, indeksKolumna));
         listaPracownik.click();
         String getValueListaPracownik = danePracownika.getAttribute("value");
-        Assertions.assertEquals(getValueListaPracownik,(wyborKomorkiPracownik(indeksWiersz, indeksKolumna)));
+        Assertions.assertEquals(getValueListaPracownik, (wyborKomorkiPracownik(indeksWiersz, indeksKolumna)));
         return this;
+    }
+
+    @Step
+    public MakeOrderPage setHourAndMinute(String hour, String minutes) throws InterruptedException {
+        Thread.sleep(2000);
+        hourField.clear();
+        hourField.sendKeys(hour);
+        minutesField.clear();
+        minutesField.sendKeys(minutes);
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage addDay(int iloscDniDoPrzodu) throws InterruptedException {
+        dataField.clear();
+        LocalDate date = LocalDate.now();
+        LocalDate tomorrow = date.plusDays(iloscDniDoPrzodu);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String result = formatter.format(tomorrow);
+        dataField.sendKeys(result);
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage orderIn20Minutes() {
+        int i = 0;
+        while (i < 21) {
+            minuteButtonPlus.click();
+            i++;
+        }
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage orderInOneHour (){
+     hourButtonPlus.click();
+     return this;
     }
 }
 
