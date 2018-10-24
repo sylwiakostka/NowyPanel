@@ -108,7 +108,7 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//ul[@class='dropdown-menu']//a[text()='luksusowa']")
     private WebElement listaKlasaLuksusowa;
 
-    @FindBy(xpath = "//a[@class='btn btn-block ng-binding btn-default']")
+    @FindBy(xpath = "//a[@ng-click='c.showModal()']")
     private WebElement filtryButton;
 
     @FindBy(id = "model-comment")
@@ -356,6 +356,7 @@ public class MakeOrderPage extends BasePage {
         zwierzetaCheckbox.click();
         Thread.sleep(3000);
         zastosujZmianyButton.click();
+        Thread.sleep(2000);
         Assertions.assertEquals("Zwierzęta", wybraneFiltry.getText());
         return new MakeOrderPage();
     }
@@ -596,6 +597,17 @@ public class MakeOrderPage extends BasePage {
     public MakeOrderPage orderInOneHour (){
      hourButtonPlus.click();
      return this;
+    }
+
+
+    @Step
+    public MakeOrderPage orderInXMinutes(int minutes) {
+        int i = 0;
+        while (i < minutes) {
+            minuteButtonPlus.click();
+            i++;
+        }
+        return this;
     }
 }
 

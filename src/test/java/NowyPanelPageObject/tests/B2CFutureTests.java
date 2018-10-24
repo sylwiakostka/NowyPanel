@@ -33,4 +33,43 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
+    @Test
+    public void shouldOrderToAirportToday () throws Exception {
+        new MakeOrderPage()
+                .choseB2COrder()
+                .introduceAddressesAndFullName("Żwirki i Wigury 1, Warszawa", "Prosta 6, Warszawa")
+                .orderInOneHour()
+                .chooseJezykAngielskiFiltr()
+                .chooseKombiFiltr()
+                .addNote("duże walizki, francuzi")
+                .saveOrder();
+    }
+
+    @Test
+    public void shouldOrderTodayInXMinutes () throws Exception {
+        new MakeOrderPage()
+                .choseB2COrder()
+                .introduceAddressesAndFullName("Łucka 4, Warszawa","Lazurowa, Warszawa" )
+                .orderInXMinutes(40)
+                .saveOrder();
+    }
+
+    @Test
+    public void shouldOrderTaxiTodayInXMinutesMixFilters () throws Exception {
+        new MakeOrderPage()
+                .choseB2COrder()
+                .introduceAddressesAndFullName("Al. Jana Pawła II 2, Warszawa", "Mickiewicza A. 4, Warszawa")
+                .orderInXMinutes(30)
+                .choseLuxuryTaxi()
+                .chooseJezykAngielskiFiltr()
+                .chooseZakupyFiltr()
+                .chooseKombiFiltr()
+                .chooseBusFiltr(6)
+                .chooseZwierzetaFiltr()
+                .addNote("dużo bagaży + pies, od wejścia głównego")
+                .saveOrder();
+    }
+
+
+
 }
