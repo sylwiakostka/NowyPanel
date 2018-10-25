@@ -59,7 +59,7 @@ public class B2CFutureTests extends TestConfig {
         new MakeOrderPage()
                 .choseB2COrder()
                 .introduceAddressesAndFullName("Al. Jana Pawła II 2, Warszawa", "Mickiewicza A. 4, Warszawa")
-                .orderInXMinutes(30)
+                .orderInXMinutes(20)
                 .choseLuxuryTaxi()
                 .chooseJezykAngielskiFiltr()
                 .chooseZakupyFiltr()

@@ -26,6 +26,23 @@ public class B2BNowTests extends TestConfig {
                 .saveOrder();
     }
 
+    @Test
+    public void shouldOrderMixFiltersVIP () throws Exception {
+        new MakeOrderPage()
+                .chooseB2BOrder()
+                .introduceDanePracownika(1,0)
+                .introduceAddresses("Żwirki i Wigury 2, Warszawa", "Hoża 1, Warszawa")
+                .choseLuxuryTaxi()
+                .chooseJezykAngielskiFiltr()
+                .chooseZakupyFiltr()
+                .chooseKombiFiltr()
+                .chooseBusFiltr(6)
+                .chooseZwierzetaFiltr()
+                .addNote("dużo bagaży + pies, od wejścia głównego")
+                .saveOrder();
+
+    }
+
 
 
 

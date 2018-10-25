@@ -13,6 +13,13 @@ public class VoucherTests extends TestConfig {
                 .assertDanePracownika(1,1)
                 .assertDaneVouchera(1,0)
                 .introduceAddresses("Piękna 2, Warszawa", "Rozłogi 1, Warszawa")
+                .choseLuxuryTaxi()
+                .chooseJezykAngielskiFiltr()
+                .chooseZakupyFiltr()
+                .chooseKombiFiltr()
+                .chooseBusFiltr(6)
+                .chooseZwierzetaFiltr()
+                .addNote("dużo bagaży + pies, od wejścia głównego")
                 .saveOrder();
     }
 
