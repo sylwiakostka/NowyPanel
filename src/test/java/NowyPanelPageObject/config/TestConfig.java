@@ -3,12 +3,14 @@ package NowyPanelPageObject.config;
 import NowyPanelPageObject.pages.HomePageLogIn;
 import NowyPanelPageObject.pages.MakeOrderPage;
 import NowyPanelPageObject.pages.NewOrderPage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
+import static NowyPanelPageObject.config.WebDriverSingleton.quit;
 
 
 public class TestConfig {
@@ -38,8 +40,8 @@ public class TestConfig {
         new MakeOrderPage().verifyMakeOrderPage("Telefon do weryfikacji zgłoszenia i tel. kontaktowy do klienta");
     }
 
-//    @AfterEach
-//    public void tearDown (){
-//        quit();
-//    }
+    @AfterEach
+    public void tearDown (){
+        quit();
+    }
 }

@@ -231,6 +231,9 @@ public class MakeOrderPage extends BasePage {
     @FindBy(id = "model-date")
     private WebElement dataField;
 
+    @FindBy (xpath = "//div/a [@href = 'https://itaxi.pl/taxi-corporation-client-web2/phoneHistory/list.html?phone=508264455&submit=Szukaj']")
+    private WebElement historiaDzwoniacegoButton;
+
 
     @Step
     public MakeOrderPage verifyMakeOrderPage(String tytulStronyZamowienia) {
@@ -609,6 +612,13 @@ public class MakeOrderPage extends BasePage {
         }
         return this;
     }
+
+    @Step
+    public CorporationClientPage openUserHistory (){
+        historiaDzwoniacegoButton.click();
+        return new CorporationClientPage().verifyCorporationClientPage();
+    }
+
 }
 
 

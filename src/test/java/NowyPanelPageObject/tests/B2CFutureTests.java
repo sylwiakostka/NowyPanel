@@ -28,7 +28,7 @@ public class B2CFutureTests extends TestConfig {
     public void shouldOrderInOneHour() throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
-                .introduceAddressesAndFullName("Kolejowa 1, Warszawa", "Baśniowa 3, Warszawa")
+                .introduceAddressesAndFullName("Żwirki i Wigury 1, Warszawa", "Baśniowa 3, Warszawa")
                 .orderInOneHour()
                 .saveOrder();
     }
@@ -59,14 +59,24 @@ public class B2CFutureTests extends TestConfig {
         new MakeOrderPage()
                 .choseB2COrder()
                 .introduceAddressesAndFullName("Al. Jana Pawła II 2, Warszawa", "Mickiewicza A. 4, Warszawa")
-                .orderInXMinutes(20)
                 .choseLuxuryTaxi()
                 .chooseJezykAngielskiFiltr()
                 .chooseZakupyFiltr()
                 .chooseKombiFiltr()
                 .chooseBusFiltr(6)
                 .chooseZwierzetaFiltr()
-                .addNote("dużo bagaży + pies, od wejścia głównego")
+                .addComment("dużo bagaży + pies, od wejścia głównego")
+                .orderInXMinutes(22)
+                .saveOrder();
+    }
+
+    @Test
+    public void shouldOrderTaxiPayByCard () throws Exception {
+        new MakeOrderPage()
+                .choseB2COrder()
+                .introduceAddressesAndFullName("Jasna 4, Warszawa", "Prosta 1, Warszawa")
+                .choosePayByCardFiltr()
+                .orderInXMinutes(20)
                 .saveOrder();
     }
 

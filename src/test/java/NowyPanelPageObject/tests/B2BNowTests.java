@@ -31,7 +31,7 @@ public class B2BNowTests extends TestConfig {
         new MakeOrderPage()
                 .chooseB2BOrder()
                 .introduceDanePracownika(1,0)
-                .introduceAddresses("Żwirki i Wigury 2, Warszawa", "Hoża 1, Warszawa")
+                .introduceAddresses("Żwirki i Wigury 4, Warszawa", "Hoża 1, Warszawa")
                 .choseLuxuryTaxi()
                 .chooseJezykAngielskiFiltr()
                 .chooseZakupyFiltr()

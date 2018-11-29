@@ -31,7 +31,6 @@ public class NewOrderPage extends BasePage {
     public MakeOrderPage openMakeOrderPage(String phoneNumber) {
         phoneField.sendKeys(phoneNumber);
         submitButton.click();
-
         return new MakeOrderPage();
     }
 
