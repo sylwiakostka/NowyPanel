@@ -3,24 +3,23 @@ package NowyPanelPageObject.pages;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
 
-public class CorporationClientPage extends BasePage {
-    public CorporationClientPage() {
+public class StatystykiPage extends BasePage {
+    public StatystykiPage() {
         super();
     }
 
-    @FindBy(name = "login")
-    private WebElement loginButton;
+    @FindBy(xpath = "//em[.='zakończone']")
+    private WebElement tekstWyjasniajacy;
 
-
-    public CorporationClientPage verifyCorporationClientPage() {
-
+    public StatystykiPage verifyStatystyiPage() {
         for (String winHandle : getInstance().getWindowHandles()) {
             getInstance().switchTo().window(winHandle);
         }
-        Assertions.assertTrue(loginButton.isDisplayed());
+        Assertions.assertTrue(tekstWyjasniajacy.isDisplayed());
         return this;
     }
-
 }
+

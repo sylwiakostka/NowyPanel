@@ -3,23 +3,22 @@ package NowyPanelPageObject.pages;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
 
-public class CorporationClientPage extends BasePage {
-    public CorporationClientPage() {
+public class RaportyPage extends BasePage {
+    public RaportyPage() {
         super();
     }
 
-    @FindBy(name = "login")
-    private WebElement loginButton;
+    @FindBy(id = "report-type-dropdown")
+    private WebElement raportPorzuconychZlecen;
 
-
-    public CorporationClientPage verifyCorporationClientPage() {
-
+    public RaportyPage verifyRaportyPage() {
         for (String winHandle : getInstance().getWindowHandles()) {
             getInstance().switchTo().window(winHandle);
         }
-        Assertions.assertTrue(loginButton.isDisplayed());
+        Assertions.assertTrue(raportPorzuconychZlecen.isDisplayed());
         return this;
     }
 

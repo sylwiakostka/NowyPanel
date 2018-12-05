@@ -19,7 +19,7 @@ public class B2CFutureTests extends TestConfig {
     public void shouldOrderIn20Minutes() throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
-                .introduceAddressesAndFullName("Towarowa 1, Warszawa", "Wałbrzyska 5, Warszawa")
+                .introduceAddressesAndFullName("Towarowa 5, Warszawa", "Wałbrzyska 5, Warszawa")
                 .orderIn20Minutes()
                 .saveOrder();
     }

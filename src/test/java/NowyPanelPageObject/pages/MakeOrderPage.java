@@ -13,6 +13,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -231,8 +233,47 @@ public class MakeOrderPage extends BasePage {
     @FindBy(id = "model-date")
     private WebElement dataField;
 
-    @FindBy (xpath = "//div/a [@href = 'https://itaxi.pl/taxi-corporation-client-web2/phoneHistory/list.html?phone=508264455&submit=Szukaj']")
+    @FindBy(xpath = "//div/a [@href = 'https://itaxi.pl/taxi-corporation-client-web2/phoneHistory/list.html?phone=508264455&submit=Szukaj']")
     private WebElement historiaDzwoniacegoButton;
+
+    @FindBy(xpath = "//a [@title = 'kliknij, aby przełączyć na wcześniejszą wersję panelu...']")
+    private WebElement starszaWersjaPaneluButton;
+
+    @FindBy(xpath = "//a[@title = 'kliknij, aby zgłosić problem...']")
+    private WebElement zglosBladButton;
+
+    @FindBy(xpath = "//textarea[@name = 'message']")
+    private WebElement opiszProblemArea;
+
+    @FindBy(xpath = "//button [@ng-if = '!saved']")
+    private WebElement zglosButtonZgloszenieBledu;
+
+    @FindBy(xpath = "//div [@class = 'alert alert-success ng-scope']")
+    private WebElement alertPotwierdzenieZgloszeniaBledu;
+
+    @FindBy(xpath = "//button [@ng-if = 'saved']")
+    private WebElement zamknijButtonPotwierdzenieZgloszeniaBledu;
+
+    @FindBy(xpath = "//a[@class='dropdown-toggle']")
+    private WebElement narzedziaButton;
+
+    @FindBy(xpath = "//li//a[@href='/admin/sessions']")
+    private WebElement sesjeButton;
+
+    @FindBy(xpath = "//li//a[@href='/admin/statistics']")
+    private WebElement statystykiButton;
+
+    @FindBy(xpath = "//li//a[@href='/admin/reports']")
+    private WebElement raportyButton;
+
+    @FindBy(xpath = "//li//a[@href='/admin/recently-dismissed-orders']")
+    private WebElement monitoringOdrzuconychZlecenButton;
+
+    @FindBy(xpath = "//div[@class='order-form-drivers-map']//input[@ng-model='state.autoupdate']")
+    private WebElement automatyczneOdswiezanieListCheckbox;
+
+    @FindBy(xpath = "//div[@class='order-form-drivers-map']//input[@ng-model='state.fitMapToMarkers']")
+    private WebElement automatyczneDopasowanieWidokuCheckbox;
 
 
     @Step
@@ -597,9 +638,9 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage orderInOneHour (){
-     hourButtonPlus.click();
-     return this;
+    public MakeOrderPage orderInOneHour() {
+        hourButtonPlus.click();
+        return this;
     }
 
 
@@ -614,13 +655,93 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public CorporationClientPage openUserHistory (){
+    public CorporationClientPage openUserHistory() {
         historiaDzwoniacegoButton.click();
         return new CorporationClientPage().verifyCorporationClientPage();
     }
 
-}
+    @Step
+    public StarszaWersjaPaneluPage openStarszaWersjaPanelu() {
+        starszaWersjaPaneluButton.click();
+        return new StarszaWersjaPaneluPage().verifyStarszaWersjaPanelu();
+    }
 
+    @Step
+    public MakeOrderPage zglosBlad() {
+        zglosBladButton.click();
+        Assertions.assertTrue(opiszProblemArea.isDisplayed());
+        opiszProblemArea.sendKeys("nic się nie stało");
+        zglosButtonZgloszenieBledu.click();
+        alertPotwierdzenieZgloszeniaBledu.isDisplayed();
+        Assertions.assertEquals("Zgłoszenie zostało zapisane.", alertPotwierdzenieZgloszeniaBledu.getText());
+        zamknijButtonPotwierdzenieZgloszeniaBledu.click();
+        return this;
+    }
+
+    @Step
+    public SesjePage openSesjePage() throws AWTException, InterruptedException {
+        narzedziaButton.click();
+        sesjeButton.click();
+        Thread.sleep(2000);
+        Robot r = new Robot();
+        r.keyPress(KeyEvent.VK_ENTER);
+        r.keyRelease(KeyEvent.VK_ENTER);
+        return new SesjePage().verifySesjePage();
+    }
+
+    @Step
+    public StatystykiPage openStatystykiPage() throws InterruptedException, AWTException {
+        narzedziaButton.click();
+        statystykiButton.click();
+        Thread.sleep(2000);
+        Robot r = new Robot();
+        r.keyPress(KeyEvent.VK_ENTER);
+        r.keyRelease(KeyEvent.VK_ENTER);
+        return new StatystykiPage().verifyStatystyiPage();
+    }
+
+    @Step
+    public RaportyPage openRaportyPage() throws InterruptedException, AWTException {
+        narzedziaButton.click();
+        raportyButton.click();
+        Thread.sleep(2000);
+        Robot r = new Robot();
+        r.keyPress(KeyEvent.VK_ENTER);
+        r.keyRelease(KeyEvent.VK_ENTER);
+        return new RaportyPage().verifyRaportyPage();
+    }
+
+
+    @Step
+    public MonitoringOdrzuconychZlecenPage openMonitoringOdrzuconychZlecenPage() throws InterruptedException, AWTException {
+        narzedziaButton.click();
+        monitoringOdrzuconychZlecenButton.click();
+        Thread.sleep(2000);
+        Robot r = new Robot();
+        r.keyPress(KeyEvent.VK_ENTER);
+        r.keyRelease(KeyEvent.VK_ENTER);
+        return new MonitoringOdrzuconychZlecenPage().verifyMonitoringOdrzuconychZlecenPage();
+    }
+
+    @Step
+    public MakeOrderPage selectAutomatyczneOdswiezanieListyCheckbox() throws InterruptedException {
+        Thread.sleep(3000);
+        automatyczneOdswiezanieListCheckbox.click();
+        Assertions.assertTrue(automatyczneOdswiezanieListCheckbox.isSelected());
+        Thread.sleep(3000);
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage unselectAutomaczneDopasowywanieWidoku() throws InterruptedException {
+        Thread.sleep(2000);
+        automatyczneDopasowanieWidokuCheckbox.click();
+        Assertions.assertFalse(automatyczneDopasowanieWidokuCheckbox.isSelected());
+        Thread.sleep(3000);
+        return this;
+    }
+
+}
 
 
 
