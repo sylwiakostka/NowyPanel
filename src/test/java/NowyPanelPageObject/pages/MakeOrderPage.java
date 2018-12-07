@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -218,7 +219,7 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//div[@class='input-group']//input[@ng-model='model.voucher.code']")
     private WebElement voucherNumberField;
 
-    @FindBy(xpath = "//div[@class='input-group']//input [@ng-model='model.values.client.name']")
+    @FindBy(xpath = "//input [@ng-model='model.values.client.name']")
     private WebElement danePracownika;
 
     @FindBy(xpath = "//ul [@class='dropdown-menu ng-isolate-scope']//a [@tabindex = '-1']")
@@ -275,6 +276,26 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//div[@class='order-form-drivers-map']//input[@ng-model='state.fitMapToMarkers']")
     private WebElement automatyczneDopasowanieWidokuCheckbox;
 
+    @FindBy(xpath = "//button[@ng-click='model.clearVoucher()']")
+    private WebElement usunVoucherButton;
+
+    @FindBy(id = "model-date")
+    private WebElement dateField;
+
+    @FindBy(xpath = "//button [@class='btn btn-sm btn-success pull-right uib-close ng-binding']")
+    private WebElement zamknijCalendarButton;
+
+    @FindBy(xpath = "//p[@class='alert alert-danger ng-binding']")
+    private WebElement alertDniTygodnia;
+
+    @FindBy(xpath = "//p[@class = 'ng-binding']")
+    private WebElement alertGodziny;
+
+    @FindBy(xpath = "//p[@ng-show='c.voucher.maxTariff']")
+    private WebElement alertMaxTaryfa;
+
+    @FindBy(xpath = "//p[@ng-show='c.voucher.carClass']")
+    private WebElement alertKlasaPopularna;
 
     @Step
     public MakeOrderPage verifyMakeOrderPage(String tytulStronyZamowienia) {
@@ -541,17 +562,26 @@ public class MakeOrderPage extends BasePage {
     }
 
     @Step
-    public MakeOrderPage chooseIncorrectVoucher(int indeksWiersz, int indeksKolumna) throws Exception {
+    public MakeOrderPage chooseStaleVoucher(int indeksWiersz, int indeksKolumna) throws Exception {
         Thread.sleep(2000);
         waitForVisibilityOfElement(voucherButton);
         voucherButton.click();
         numerVouchera.sendKeys(wyborKomorkiVoucher(indeksWiersz, indeksKolumna));
         sprawdzButton.click();
-        Assertions.assertTrue(voucherAlertError.isDisplayed());
+        String alertText = voucherAlertError.getText();
+        Assertions.assertEquals("Voucher jest nieaktywny", alertText);
         zamknijErrorVoucherButton.click();
         profilBiznesowyButton.isSelected();
         return this;
     }
+
+
+    @Step
+    public MakeOrderPage deleteVoucher() throws Exception {
+        usunVoucherButton.click();
+        return new MakeOrderPage();
+    }
+
 
     @Step
     public String wyborKomorkiVoucher(int indeksWiersz, int indeksKolumna) throws IOException {
@@ -738,6 +768,103 @@ public class MakeOrderPage extends BasePage {
         automatyczneDopasowanieWidokuCheckbox.click();
         Assertions.assertFalse(automatyczneDopasowanieWidokuCheckbox.isSelected());
         Thread.sleep(3000);
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage selectOnlySundays() throws InterruptedException {
+        dateField.clear();
+        LocalDate date = LocalDate.now();
+        DayOfWeek dateTimeDayOfWeek = date.getDayOfWeek();
+        LocalDate saturday = null;
+
+        switch (dateTimeDayOfWeek) {
+            case MONDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.MONDAY)) {
+                    saturday = date.plusDays(6);
+                }
+                break;
+            case TUESDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.TUESDAY)) {
+                    saturday = date.plusDays(5);
+                }
+                break;
+            case WEDNESDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.WEDNESDAY)) {
+                    saturday = date.plusDays(4);
+                }
+                break;
+            case THURSDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.THURSDAY)) {
+                    saturday = date.plusDays(3);
+                }
+                break;
+            case FRIDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.FRIDAY)) {
+                    saturday = date.plusDays(2);
+                }
+                break;
+            case SATURDAY:
+                if (dateTimeDayOfWeek.equals(DayOfWeek.SATURDAY)) {
+                    saturday = date.plusDays(1);
+                }
+                break;
+            default: {
+                saturday = date;
+            }
+            break;
+        }
+        dateField.sendKeys(saturday.toString());
+        Thread.sleep(2000);
+        zamknijCalendarButton.click();
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage verifyAlertDays() {
+        waitForVisibilityOfElement(alertDniTygodnia);
+        String alertText = alertDniTygodnia.getText();
+        Assertions.assertEquals("Voucher nie pozwala na zamówienie taksówki (limit dni tygodnia)", alertText);
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage chooseInvalidHourVoucher() throws IOException, InterruptedException {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(voucherButton);
+        voucherButton.click();
+        numerVouchera.sendKeys(wyborKomorkiVoucher(13, 0));
+        sprawdzButton.click();
+        String alertText = alertGodziny.getText();
+        Assertions.assertEquals("Voucher nie pozwala na zamówienie taksówki (limit godzinowy od 18 do 23)", alertText);
+        zamknijErrorVoucherButton.click();
+        profilBiznesowyButton.isSelected();
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage chooseMaxTariffLimitVoucher() throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(voucherButton);
+        voucherButton.click();
+        numerVouchera.sendKeys(wyborKomorkiVoucher(14, 0));
+        sprawdzButton.click();
+        String alertText = alertMaxTaryfa.getText();
+        Assertions.assertEquals("Voucher nakłada ograniczenie na maksymalną taryfę: 2.40 zł.", alertText);
+        zastosujVoucherButton.click();
+        return this;
+    }
+
+    @Step
+    public MakeOrderPage choosePopularTaxiLimitVoucher() throws Exception {
+        Thread.sleep(2000);
+        waitForVisibilityOfElement(voucherButton);
+        voucherButton.click();
+        numerVouchera.sendKeys(wyborKomorkiVoucher(15, 0));
+        sprawdzButton.click();
+        String alertText = alertKlasaPopularna.getText();
+        Assertions.assertEquals("Voucher nakłada ograniczenie na klasę samochodu: .", alertText);
+        zastosujVoucherButton.click();
         return this;
     }
 
