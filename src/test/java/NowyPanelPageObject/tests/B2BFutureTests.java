@@ -2,11 +2,11 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 public class B2BFutureTests extends TestConfig {
 
-    @Test
+
+    @org.testng.annotations.Test
     public void shouldMakeOrderTodayPremiumVIP() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
@@ -17,8 +17,8 @@ public class B2BFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
-    public void shoudlMakeOrderTodayAirpotr() throws Exception {
+    @org.testng.annotations.Test
+    public void shouldMakeOrderTodayAirpotr() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
                 .introduceDanePracownika(4, 0)
@@ -28,7 +28,7 @@ public class B2BFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldMakeOrderTodayInMinutesMixFilters() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()

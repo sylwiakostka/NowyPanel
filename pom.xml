@@ -82,6 +82,7 @@
             <artifactId>selenium-shutterbug</artifactId>
             <version>0.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
@@ -91,7 +92,25 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>selenium-jupiter</artifactId>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
 
+
+        <!-- to send emails-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-parent</artifactId>
+            <version>38</version>
+        </dependency>
 
     </dependencies>
 

@@ -5,7 +5,6 @@ import NowyPanelPageObject.pages.MakeOrderPage;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
 import com.assertthat.selenium_shutterbug.utils.web.ScrollStrategy;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,14 +14,14 @@ import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
 
 public class MapaChangesAndAllViewTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void selectAndUnselectCheckboxes() throws InterruptedException {
         new MakeOrderPage()
                 .selectAutomatyczneOdswiezanieListyCheckbox()
                 .unselectAutomaczneDopasowywanieWidoku();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void compareImageOfMakeOrderPage () throws Exception {
         File image = new File("C:\\Users\\user\\Documents\\TestyScreeny\\MakeOrderPageScreen.png");
         BufferedImage expectedImage = ImageIO.read(image);

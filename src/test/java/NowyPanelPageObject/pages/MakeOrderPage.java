@@ -45,7 +45,7 @@ public class MakeOrderPage extends BasePage {
     @FindBy(xpath = "//a[@class='center-block btn btn-primary']")
     private WebElement profilBiznesowyButton;
 
-    @FindBy(id = "address-from")
+    @FindBy(id = "address-fro")
     private WebElement adresStartuField;
 
     @FindBy(xpath = "//input[@id='address-to']")

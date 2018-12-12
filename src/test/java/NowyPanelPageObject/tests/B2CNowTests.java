@@ -2,12 +2,12 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
+
 
 public class B2CNowTests extends TestConfig {
 
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldMakeBasicOrder() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -15,7 +15,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderLuxuryTaxi() throws InterruptedException {
 
         new MakeOrderPage()
@@ -25,7 +25,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderPopularTaxi() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -36,7 +36,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTwoTaxis() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -45,7 +45,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderThreeTaxis() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -54,7 +54,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiFeeBetweenDwoAndThreePLN() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -64,7 +64,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiFeeBetweenThreeAndFourPLN() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -74,7 +74,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiFeeBetweenFourAndFivePLN() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -84,7 +84,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiPayByCard() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -93,7 +93,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiZwierzeta() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -102,7 +102,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiKombi() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -111,7 +111,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiFotelikDlaDziecka() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -120,7 +120,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiKlimatyzacja() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -129,7 +129,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiPrzesylka() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -138,7 +138,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiZakupy() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -147,7 +147,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiJezykAngielski() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -157,7 +157,7 @@ public class B2CNowTests extends TestConfig {
     }
 
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiBus5persons() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -166,7 +166,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiBus6persons() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -175,7 +175,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiBus7persons() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -185,7 +185,7 @@ public class B2CNowTests extends TestConfig {
     }
 
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiBus8persons() throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -196,7 +196,7 @@ public class B2CNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldCancelOrder () throws InterruptedException {
         new MakeOrderPage()
                 .choseB2COrder()

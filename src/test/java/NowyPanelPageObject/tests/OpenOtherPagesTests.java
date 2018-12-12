@@ -2,50 +2,49 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
 public class OpenOtherPagesTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void openUserHistory() {
         new MakeOrderPage()
                 .openUserHistory();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void openStarszaWersjaPanelu() {
         new MakeOrderPage()
                 .openStarszaWersjaPanelu();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void zglosBlad() {
         new MakeOrderPage()
                 .zglosBlad();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void openSesjePage() throws InterruptedException, AWTException {
         new MakeOrderPage()
                 .openSesjePage();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void openStatystykiPage() throws InterruptedException, AWTException {
         new MakeOrderPage()
                 .openStatystykiPage();
     }
 
 
-    @Test
+    @org.testng.annotations.Test
     public void openRaportyPage() throws InterruptedException, AWTException {
         new MakeOrderPage()
                 .openRaportyPage();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void openMonitoringOdrzuconychZlecenPage() throws AWTException, InterruptedException {
         new MakeOrderPage()
                 .openMonitoringOdrzuconychZlecenPage();

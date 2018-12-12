@@ -2,11 +2,10 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 public class B2CFutureTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldMakeBasicOrderToday() throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -15,7 +14,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderIn20Minutes() throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -24,7 +23,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderInOneHour() throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -33,7 +32,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderToAirportToday () throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -45,7 +44,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTodayInXMinutes () throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -54,7 +53,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiTodayInXMinutesMixFilters () throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
@@ -70,7 +69,7 @@ public class B2CFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderTaxiPayByCard () throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()

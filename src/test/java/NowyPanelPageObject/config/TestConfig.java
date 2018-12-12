@@ -3,9 +3,18 @@ package NowyPanelPageObject.config;
 import NowyPanelPageObject.pages.HomePageLogIn;
 import NowyPanelPageObject.pages.MakeOrderPage;
 import NowyPanelPageObject.pages.NewOrderPage;
-import org.junit.Before;
+import NowyPanelPageObject.utilities.SendEmailWithAttachments;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static NowyPanelPageObject.config.WebDriverSingleton.getInstance;
@@ -16,7 +25,7 @@ public class TestConfig {
     private WebDriver driver;
 
 
-    @Before
+    @BeforeTest
     public void setUpAndLogIn() throws InterruptedException {
         String baseURL = "https://taxi2.demo.eo.pl/login";
         driver = getInstance();
@@ -36,30 +45,33 @@ public class TestConfig {
 
         Thread.sleep(5);
 
+
         new MakeOrderPage().verifyMakeOrderPage("Telefon do weryfikacji zgłoszenia i tel. kontaktowy do klienta");
     }
-}
 
-//    @AfterEach
-//    public void TakeScreenIfFailureAndTearDown (){
-//        public void screenShot(ITestResult result){
-//            //using ITestResult.FAILURE is equals to result.getStatus then it enter into if condition
-//            if(ITestResult.FAILURE==result.getStatus()){
-//                try{
-//                    // To create reference of TakesScreenshot
-//                    TakesScreenshot screenshot=(TakesScreenshot)driver;
-//                    // Call method to capture screenshot
-//                    File src=screenshot.getScreenshotAs(OutputType.FILE);
-//                    // Copy files to specific location
-//                    // result.getName() will return name of test case so that screenshot name will be same as test case name
-//                    FileUtils.copyFile(src, new File("D:\\"+result.getName()+".png"));
-//                    System.out.println("Successfully captured a screenshot");
-//                }catch (Exception e){
-//                    System.out.println("Exception while taking screenshot "+e.getMessage());
-//                }
-//            }
-//            driver.quit();
-//        }
+
+    @AfterMethod
+    public void TakeScreenshotOfFailureAndTearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            try {
+                TakesScreenshot screenshot = (TakesScreenshot) driver;
+                File src = screenshot.getScreenshotAs(OutputType.FILE);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy HH-mm-ss");
+                Date date = new Date();
+                String dateOfTest = sdf.format(date);
+                FileUtils.copyFile(src, new File("C:\\Users\\user\\IdeaProjects\\selenium\\src\\test\\java\\NowyPanelPageObject\\screens\\" + " " + dateOfTest + " " + result.getName() + ".png"));
+                System.out.println("Successfully captured a screenshot" + " " + dateOfTest + " " + result.getName());
+                SendEmailWithAttachments.sendEmailWithScreenOfError(dateOfTest + " " + result.getName(), dateOfTest + " " + result.getName());
+                System.out.println("Successfully email sent");
+
+            } catch (Exception e) {
+                System.out.println("Exception while taking screenshot " + e.getMessage());
+            }
+        }
+        driver.quit();
+    }
+
+}
 
 
 

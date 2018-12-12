@@ -2,11 +2,10 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 public class VoucherFutureTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithVoucherPracownik() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(9, 0)
@@ -24,7 +23,7 @@ public class VoucherFutureTests extends TestConfig {
 
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithVoucherGosc () throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(10,0)
@@ -35,7 +34,7 @@ public class VoucherFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithNonameVoucher () throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(11,0)
@@ -45,7 +44,7 @@ public class VoucherFutureTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldCanNotOrderInSunday () throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(12,0)
@@ -54,7 +53,7 @@ public class VoucherFutureTests extends TestConfig {
                 .cancelOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldCanNotOrderBetween18And23 () throws Exception {
         new MakeOrderPage()
                 .chooseInvalidHourVoucher()

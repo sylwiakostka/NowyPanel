@@ -2,11 +2,10 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 public class B2BNowTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldMakeBasicOrder() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
@@ -15,7 +14,7 @@ public class B2BNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderLuxuryTaxi () throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
@@ -26,7 +25,7 @@ public class B2BNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderMixFiltersVIP () throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()

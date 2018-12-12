@@ -2,11 +2,10 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
-import org.junit.jupiter.api.Test;
 
 public class VoucherNowTests extends TestConfig {
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithVoucherPracownik() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(1, 0)
@@ -23,14 +22,14 @@ public class VoucherNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldNotOrderWithStaleVoucher() throws Exception {
         new MakeOrderPage()
                 .chooseStaleVoucher(6, 0)
                 .cancelOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithVoucherGosc() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(2, 0)
@@ -39,7 +38,7 @@ public class VoucherNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void deleteVoucher() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(2, 0)
@@ -47,7 +46,7 @@ public class VoucherNowTests extends TestConfig {
                 .deleteVoucher();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldOrderWithNonameVoucher() throws Exception {
         new MakeOrderPage()
                 .chooseCorrectVoucher(11, 0)
@@ -56,7 +55,7 @@ public class VoucherNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldInformAboutVoucherTarifLimit() throws Exception {
         new MakeOrderPage()
                 .chooseMaxTariffLimitVoucher()
@@ -65,7 +64,7 @@ public class VoucherNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void shouldInformAboutTaxiClassLimitVoucher() throws Exception {
         new MakeOrderPage()
                 .choosePopularTaxiLimitVoucher()
