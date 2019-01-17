@@ -36,7 +36,7 @@ public class B2CFutureTests extends TestConfig {
     public void shouldOrderToAirportToday () throws Exception {
         new MakeOrderPage()
                 .choseB2COrder()
-                .introduceAddressesAndFullName("Żwirki i Wigury 1, Warszawa", "Prosta 6, Warszawa")
+                .introduceAddressesAndFullName("Żwirki i Wigury 2, Warszawa", "Prosta 6, Warszawa")
                 .orderInOneHour()
                 .chooseJezykAngielskiFiltr()
                 .chooseKombiFiltr()
@@ -49,7 +49,7 @@ public class B2CFutureTests extends TestConfig {
         new MakeOrderPage()
                 .choseB2COrder()
                 .introduceAddressesAndFullName("Łucka 4, Warszawa","Lazurowa, Warszawa" )
-                .orderInXMinutes(40)
+                .orderInXMinutes(90)
                 .saveOrder();
     }
 
@@ -65,7 +65,7 @@ public class B2CFutureTests extends TestConfig {
                 .chooseBusFiltr(6)
                 .chooseZwierzetaFiltr()
                 .addComment("dużo bagaży + pies, od wejścia głównego")
-                .orderInXMinutes(22)
+                .orderInXMinutes(50)
                 .saveOrder();
     }
 
@@ -75,7 +75,7 @@ public class B2CFutureTests extends TestConfig {
                 .choseB2COrder()
                 .introduceAddressesAndFullName("Jasna 4, Warszawa", "Prosta 1, Warszawa")
                 .choosePayByCardFiltr()
-                .orderInXMinutes(20)
+                .orderInXMinutes(70)
                 .saveOrder();
     }
 

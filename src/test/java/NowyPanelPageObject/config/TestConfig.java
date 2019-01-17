@@ -10,6 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import java.io.File;
@@ -51,7 +52,7 @@ public class TestConfig {
 
 
     @AfterMethod
-    public void TakeScreenshotOfFailureAndTearDown(ITestResult result) {
+    public void TakeScreenshotOfFailure(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             try {
                 TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -67,11 +68,18 @@ public class TestConfig {
             } catch (Exception e) {
                 System.out.println("Exception while taking screenshot " + e.getMessage());
             }
+
         }
+    }
+
+    @AfterTest
+    public void TearDown (){
         driver.quit();
     }
 
+
 }
+
 
 
 

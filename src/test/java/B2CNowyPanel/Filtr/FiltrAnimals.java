@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ByIdOrName;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -76,8 +77,6 @@ public class FiltrAnimals
         WebElement platnoscUKierowcy = waitDriver.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Płatność u kierowcy")));
         Thread.sleep(4000);
         platnoscUKierowcy.click();
-
-
         WebElement adresStartu = driver.findElement(By.id("address-from"));
         adresStartu.click();
         adresStartu.sendKeys(startAddress);
