@@ -2,10 +2,11 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
+import org.testng.annotations.Test;
 
 public class B2BNowTests extends TestConfig {
 
-    @org.testng.annotations.Test
+    @Test
     public void shouldMakeBasicOrder() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
@@ -14,7 +15,7 @@ public class B2BNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @org.testng.annotations.Test
+    @Test
     public void shouldOrderLuxuryTaxi () throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()
@@ -25,7 +26,7 @@ public class B2BNowTests extends TestConfig {
                 .saveOrder();
     }
 
-    @org.testng.annotations.Test
+    @Test
     public void shouldOrderMixFiltersVIP () throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()

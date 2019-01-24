@@ -2,11 +2,13 @@ package NowyPanelPageObject.tests;
 
 import NowyPanelPageObject.config.TestConfig;
 import NowyPanelPageObject.pages.MakeOrderPage;
+import org.testng.annotations.Test;
+
 
 public class B2BFutureTests extends TestConfig {
 
 
-    @org.testng.annotations.Test (ignoreMissingDependencies = true, alwaysRun = true)
+    @Test (ignoreMissingDependencies = true, alwaysRun = true)
     public void shouldMakeOrderTodayPremiumVIP() throws Exception {
         new MakeOrderPage()
                 .chooseB2BOrder()

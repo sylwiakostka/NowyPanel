@@ -582,7 +582,6 @@ public class MakeOrderPage extends BasePage {
         return new MakeOrderPage();
     }
 
-
     @Step
     public String wyborKomorkiVoucher(int indeksWiersz, int indeksKolumna) throws IOException {
         FileInputStream fis = new FileInputStream("C:\\Users\\user\\Documents\\daneTesty.xlsx");
@@ -867,6 +866,7 @@ public class MakeOrderPage extends BasePage {
         zastosujVoucherButton.click();
         return this;
     }
+
 
 }
 

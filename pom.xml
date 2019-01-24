@@ -18,19 +18,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>	(4)																												<goal>
-                            verify
-                        </goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
 
 
         </plugins>
@@ -126,6 +114,18 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-parent</artifactId>
             <version>38</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
